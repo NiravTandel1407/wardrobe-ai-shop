@@ -72,14 +72,52 @@ def get_product(db: Session, product_id: int) -> Product | None:
     return db.scalars(query).first()
 
 
-def list_products(db: Session, skip: int = 0, limit: int = 20) -> list[Product]:
-    query = (
-        select(Product)
-        .options(selectinload(Product.variants))
-        .order_by(Product.id)
-        .offset(skip)
-        .limit(limit)
-    )
+def list_products(
+    db: Session,
+    category: str | None = None,
+    gender: str | None = None,
+    min_price: float | None = None,
+    max_price: float | None = None,
+    size: str | None = None,
+    search: str | None = None,
+    skip: int = 0,
+    limit: int = 50,
+) -> list[Product]:
+    query = select(Product).options(selectinload(Product.variants))
+
+    # Category filter (matches ID or category name e.g. "jeans", "hoodies", "t-shirts")
+    if category:
+        if category.isdigit():
+            query = query.where(Product.category_id == int(category))
+        else:
+            cat_filter = Category.name.ilike(f"%{category}%")
+            # Smart alias for jeans / denim
+            if category.lower() in ("jeans", "denim"):
+                cat_filter = cat_filter | Category.name.ilike("%denim%") | Category.name.ilike("%pants%")
+            query = query.join(Product.category).where(cat_filter)
+
+    # Gender filter (men, women, unisex)
+    if gender:
+        query = query.where(Product.gender.ilike(gender))
+
+    # Price range filters
+    if min_price is not None:
+        query = query.where(Product.base_price >= min_price)
+    if max_price is not None:
+        query = query.where(Product.base_price <= max_price)
+
+    # Size variant filter (e.g. S, M, L, 32, OS)
+    if size:
+        query = query.join(Product.variants).where(ProductVariant.size.ilike(size))
+
+    # General search keyword
+    if search:
+        query = query.where(
+            (Product.name.ilike(f"%{search}%")) | (Product.description.ilike(f"%{search}%"))
+        )
+
+    # Distinct prevents duplicate products when joins match multiple variants
+    query = query.distinct().order_by(Product.id).offset(skip).limit(limit)
     return list(db.scalars(query))
 
 

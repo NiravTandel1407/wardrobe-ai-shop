@@ -49,11 +49,32 @@ def create_product(data: ProductCreate, db: Session = Depends(get_db)):
 
 @product_router.get("", response_model=list[ProductResponse])
 def list_products(
+    category: str | None = Query(None, description="Category name or ID (e.g. jeans, hoodies)"),
+    gender: str | None = Query(None, description="Gender filter: men, women, unisex"),
+    min_price: float | None = Query(None, ge=0, description="Minimum price filter"),
+    max_price: float | None = Query(None, ge=0, description="Maximum price filter"),
+    price: float | None = Query(None, ge=0, description="Price upper bound alias"),
+    size: str | None = Query(None, description="Variant size filter (e.g. S, M, L, 32)"),
+    search: str | None = Query(None, description="Search keyword in product name or description"),
+    q: str | None = Query(None, description="Search keyword alias"),
     skip: int = Query(0, ge=0),
-    limit: int = Query(20, ge=1, le=100),
+    limit: int = Query(50, ge=1, le=100),
     db: Session = Depends(get_db),
 ):
-    return services.list_products(db, skip=skip, limit=limit)
+    effective_search = search or q
+    effective_max_price = max_price or price
+
+    return services.list_products(
+        db,
+        category=category,
+        gender=gender,
+        min_price=min_price,
+        max_price=effective_max_price,
+        size=size,
+        search=effective_search,
+        skip=skip,
+        limit=limit,
+    )
 
 
 @product_router.get("/{product_id}", response_model=ProductResponse)
