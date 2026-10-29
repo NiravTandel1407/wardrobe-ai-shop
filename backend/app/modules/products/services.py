@@ -89,10 +89,22 @@ def update_product(db: Session, product: Product, data: ProductUpdate) -> Produc
     if changes.get("category_id") is not None and get_category(db, changes["category_id"]) is None:
         raise ValueError("Category does not exist")
 
+    variants_data = changes.pop("variants", None)
+
     for field, value in changes.items():
         setattr(product, field, value)
 
-    db.commit()
+    if variants_data is not None:
+        product.variants.clear()
+        for v in variants_data:
+            product.variants.append(ProductVariant(**v))
+
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise ValueError("A variant with this SKU already exists")
+
     return get_product(db, product.id)
 
 

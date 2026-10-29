@@ -74,14 +74,19 @@ export const ProductDetail = () => {
   }
 
   const handleAdd = () => {
-    // Add product with chosen size & color
-    for (let i = 0; i < quantity; i++) {
-      addToCart({
+    // Add product with chosen size & color and quantity
+    addToCart(
+      {
         ...product,
         selectedSize,
         selectedColor,
-      });
-    }
+      },
+      quantity,
+      {
+        selectedSize,
+        selectedColor,
+      }
+    );
   };
 
   return (
@@ -271,4 +276,3 @@ export const ProductDetail = () => {
 };
 
 export default ProductDetail;
-

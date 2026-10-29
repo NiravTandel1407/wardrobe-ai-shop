@@ -63,6 +63,7 @@ class ProductUpdate(BaseModel):
     base_price: Decimal | None = Field(default=None, gt=0, max_digits=10, decimal_places=2)
     image_url: str | None = Field(default=None, max_length=500)
     category_id: int | None = None
+    variants: list[VariantCreate] | None = None
 
 
 class ProductResponse(ProductBase):

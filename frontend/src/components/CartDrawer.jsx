@@ -83,7 +83,11 @@ export const CartDrawer = ({ isOpen, onClose }) => {
                 {/* Details */}
                 <div className="flex-1 min-w-0">
                   <h3 className="text-xs sm:text-sm font-medium text-brand-ink truncate">{item.name}</h3>
-                  <p className="text-xs text-brand-muted mt-0.5">₹{item.price?.toLocaleString('en-IN')}</p>
+                  <p className="text-xs text-brand-muted mt-0.5">
+                    ₹{item.price?.toLocaleString('en-IN')}
+                    {item.selectedSize ? ` · Size: ${item.selectedSize}` : ''}
+                    {item.selectedColor ? ` · ${item.selectedColor}` : ''}
+                  </p>
 
                   {/* Quantity selector */}
                   <div className="flex items-center gap-2 mt-2">
@@ -152,4 +156,3 @@ export const CartDrawer = ({ isOpen, onClose }) => {
 };
 
 export default CartDrawer;
-
