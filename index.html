@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WARDROBE — Streetwear &amp; Youth Apparel</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Tabler Icons webfont (matches reference design) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.42.0/dist/tabler-icons.min.css">
+
+  <!-- Inter from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       1. ANNOUNCEMENT BAR
+  ═══════════════════════════════════════════ -->
+  <div class="announcement-bar" role="banner">
+    <div class="page-inner">
+      Free shipping over ₹999 · Easy 15-day returns
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       2. STICKY HEADER
+  ═══════════════════════════════════════════ -->
+  <header class="site-header" id="site-header">
+    <div class="page-inner header-inner">
+
+      <!-- Mobile row -->
+      <div class="mobile-row">
+        <button id="hamburger-btn" class="icon-btn" aria-label="Open menu" aria-expanded="false">
+          <i class="ti ti-menu-2"></i>
+        </button>
+        <a href="#" class="logo" aria-label="Wardrobe home">
+          <img src="assets/logo.png" alt="WARDROBE" class="logo-img" id="logo-img-mobile"
+               onerror="this.style.display='none';document.getElementById('logo-fallback-mobile').style.display='flex';">
+          <span class="logo-fallback" id="logo-fallback-mobile">
+            <span class="logo-icon">W</span>
+            <span class="logo-word">WARDROBE</span>
+          </span>
+        </a>
+        <a href="#" class="icon-btn bag-btn" id="mobile-bag-btn" aria-label="Shopping bag">
+          <i class="ti ti-shopping-bag"></i>
+          <span class="cart-badge" id="mobile-cart-badge" hidden>0</span>
+        </a>
+      </div>
+
+      <!-- Desktop row -->
+      <div class="desktop-row">
+        <a href="#" class="logo" aria-label="Wardrobe home">
+          <img src="assets/logo.png" alt="WARDROBE" class="logo-img" id="logo-img-desktop"
+               onerror="this.style.display='none';document.getElementById('logo-fallback-desktop').style.display='flex';">
+          <span class="logo-fallback" id="logo-fallback-desktop">
+            <span class="logo-icon">W</span>
+            <span class="logo-word">WARDROBE</span>
+          </span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="#new-arrivals" class="nav-link active">New arrivals</a>
+          <a href="#catalog" class="nav-link" data-filter-sort="popularity">Trending</a>
+          <a href="#catalog" class="nav-link" data-filter-cat="Men">Men</a>
+          <a href="#catalog" class="nav-link" data-filter-cat="Women">Women</a>
+          <a href="#catalog" class="nav-link sale-link">Sale</a>
+        </nav>
+
+        <div class="header-icons">
+          <button class="icon-btn" aria-label="Search"><i class="ti ti-search"></i></button>
+          <button class="icon-btn" aria-label="Account"><i class="ti ti-user"></i></button>
+          <button class="icon-btn bag-btn" id="desktop-bag-btn" aria-label="Shopping bag">
+            <i class="ti ti-shopping-bag"></i>
+            <span class="cart-badge" id="desktop-cart-badge" hidden>0</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile chip row (below header on mobile) -->
+    <div class="mobile-chips-row" aria-label="Quick navigation">
+      <div class="mobile-chips-inner">
+        <a href="#new-arrivals" class="chip chip-active">New</a>
+        <a href="#catalog" class="chip" data-filter-sort="popularity">Trending</a>
+        <a href="#catalog" class="chip" data-filter-cat="Men">Men</a>
+        <a href="#catalog" class="chip" data-filter-cat="Women">Women</a>
+        <a href="#catalog" class="chip sale-chip">Sale</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MOBILE DRAWER
+  ═══════════════════════════════════════════ -->
+  <div class="drawer-overlay" id="drawer-overlay" aria-hidden="true"></div>
+  <nav class="mobile-drawer" id="mobile-drawer" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="drawer-header">
+      <span class="logo-fallback">
+        <span class="logo-icon">W</span>
+        <span class="logo-word">WARDROBE</span>
+      </span>
+      <button id="close-drawer-btn" class="icon-btn" aria-label="Close menu">
+        <i class="ti ti-x"></i>
+      </button>
+    </div>
+    <ul class="drawer-links">
+      <li><a href="#new-arrivals" class="drawer-link active">New arrivals</a></li>
+      <li><a href="#catalog" class="drawer-link">Trending</a></li>
+      <li><a href="#catalog" class="drawer-link" data-filter-cat="Men">Men</a></li>
+      <li><a href="#catalog" class="drawer-link" data-filter-cat="Women">Women</a></li>
+      <li><a href="#catalog" class="drawer-link sale-link">Sale</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       3. HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero" aria-label="Hero banner">
+    <div class="page-inner hero-inner">
+      <div class="hero-text">
+        <span class="hero-pill">Fall drop 2026</span>
+        <h1 class="hero-heading">Dress loud.<br>Live louder.</h1>
+        <p class="hero-sub">Streetwear made for campus, concerts and everything between.</p>
+        <div class="hero-ctas">
+          <a href="#new-arrivals" class="btn btn-filled">
+            New arrivals <i class="ti ti-arrow-right" aria-hidden="true"></i>
+          </a>
+          <a href="#catalog" class="btn btn-outlined" id="hero-trending-btn">Trending</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <i class="ti ti-shirt hero-shirt-icon"></i>
+        <div class="hero-tag hero-tag-tl">30% off hoodies</div>
+        <div class="hero-tag hero-tag-br">Oversized tee · ₹799</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       4. FEATURED PRODUCTS
+  ═══════════════════════════════════════════ -->
+  <section class="products-section" id="featured" aria-label="Featured products">
+    <div class="page-inner">
+      <div class="section-header">
+        <h2 class="section-title">Featured products</h2>
+        <a href="#catalog" class="view-all">View all</a>
+      </div>
+      <div class="product-grid grid-4" id="featured-grid"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       5. NEW ARRIVALS
+  ═══════════════════════════════════════════ -->
+  <section class="products-section" id="new-arrivals" aria-label="New arrivals">
+    <div class="page-inner">
+      <div class="section-header">
+        <h2 class="section-title">
+          New arrivals
+          <span class="badge-yellow">This week</span>
+        </h2>
+        <a href="#catalog" class="view-all">View all</a>
+      </div>
+      <div class="product-grid grid-4" id="arrivals-grid"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       6. CATALOG — ALL PRODUCTS
+  ═══════════════════════════════════════════ -->
+  <section class="catalog-section" id="catalog" aria-label="All products">
+    <div class="page-inner">
+
+      <!-- Catalog header row -->
+      <div class="catalog-header">
+        <h2 class="section-title">
+          All products
+          <span class="item-count" id="item-count">0 items</span>
+        </h2>
+        <div class="sort-wrap">
+          <label for="sort-select" class="sr-only">Sort by</label>
+          <select id="sort-select" class="sort-select">
+            <option value="popularity">Sort: Popular</option>
+            <option value="price-asc">Price: Low to high</option>
+            <option value="price-desc">Price: High to low</option>
+            <option value="newest">Newest</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Mobile filter / sort buttons -->
+      <div class="mobile-filter-bar">
+        <button class="filter-bar-btn" id="mobile-filter-btn">
+          <i class="ti ti-adjustments-horizontal"></i>
+          Filters
+          <span class="filter-count-badge" id="filter-count-badge" hidden>0</span>
+        </button>
+        <label class="filter-bar-btn" for="sort-select-mobile">
+          <i class="ti ti-arrows-sort"></i>
+          Sort
+        </label>
+        <label for="sort-select-mobile" class="sr-only">Sort by</label>
+        <select id="sort-select-mobile" class="sr-only">
+          <option value="popularity">Popular</option>
+          <option value="price-asc">Price: Low to high</option>
+          <option value="price-desc">Price: High to low</option>
+          <option value="newest">Newest</option>
+        </select>
+      </div>
+
+      <div class="catalog-body">
+
+        <!-- ── SIDEBAR FILTERS ── -->
+        <aside class="filter-sidebar" id="filter-sidebar" aria-label="Filters">
+
+          <!-- Category -->
+          <div class="filter-group">
+            <h3 class="filter-label">Category</h3>
+            <ul class="filter-checkboxes">
+              <li>
+                <label class="checkbox-label">
+                  <input type="checkbox" class="cat-check" value="T-shirts"> T-shirts
+                </label>
+              </li>
+              <li>
+                <label class="checkbox-label">
+                  <input type="checkbox" class="cat-check" value="Hoodies"> Hoodies
+                </label>
+              </li>
+              <li>
+                <label class="checkbox-label">
+                  <input type="checkbox" class="cat-check" value="Jeans"> Jeans
+                </label>
+              </li>
+              <li>
+                <label class="checkbox-label">
+                  <input type="checkbox" class="cat-check" value="Jackets"> Jackets
+                </label>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Size -->
+          <div class="filter-group">
+            <h3 class="filter-label">Size</h3>
+            <div class="size-chips">
+              <button class="size-chip" data-size="S">S</button>
+              <button class="size-chip" data-size="M">M</button>
+              <button class="size-chip" data-size="L">L</button>
+              <button class="size-chip" data-size="XL">XL</button>
+            </div>
+          </div>
+
+          <!-- Price range -->
+          <div class="filter-group">
+            <h3 class="filter-label">Price</h3>
+            <div class="range-slider-wrap">
+              <div class="range-track" id="range-track">
+                <div class="range-fill" id="range-fill"></div>
+                <input type="range" id="price-min" class="range-input range-min"
+                       min="499" max="2999" value="499" step="50">
+                <input type="range" id="price-max" class="range-input range-max"
+                       min="499" max="2999" value="2999" step="50">
+              </div>
+              <div class="range-values">
+                <span id="price-min-display">₹499</span>
+                <span id="price-max-display">₹2,999</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Colour -->
+          <div class="filter-group">
+            <h3 class="filter-label">Colour</h3>
+            <div class="colour-swatches">
+              <button class="swatch" data-colour="black" aria-label="Black" style="background:#111111"></button>
+              <button class="swatch" data-colour="yellow" aria-label="Yellow" style="background:#FFD400"></button>
+              <button class="swatch" data-colour="white" aria-label="White" style="background:#ffffff;border:1.5px solid #bbb"></button>
+              <button class="swatch" data-colour="blue" aria-label="Blue" style="background:#3B82F6"></button>
+            </div>
+          </div>
+
+        </aside>
+
+        <!-- ── PRODUCT RESULTS ── -->
+        <div class="catalog-results">
+
+          <!-- Active filter chips -->
+          <div class="active-filters" id="active-filters" hidden>
+            <div class="active-chips" id="active-chips"></div>
+            <button class="clear-all-btn" id="clear-all-btn">Clear all</button>
+          </div>
+
+          <!-- Product grid -->
+          <div class="product-grid grid-3" id="catalog-grid"></div>
+
+          <!-- Empty state -->
+          <div class="empty-state" id="empty-state" hidden>
+            <i class="ti ti-mood-sad-squint empty-icon"></i>
+            <p>No products match your filters.</p>
+            <button class="btn btn-outlined" id="empty-clear-btn">Clear all filters</button>
+          </div>
+
+          <!-- Load more -->
+          <div class="load-more-wrap" id="load-more-wrap" hidden>
+            <button class="btn btn-outlined" id="load-more-btn">Load more</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MOBILE FILTER BOTTOM SHEET
+  ═══════════════════════════════════════════ -->
+  <div class="sheet-overlay" id="sheet-overlay" aria-hidden="true"></div>
+  <div class="filter-sheet" id="filter-sheet" aria-label="Filter options" aria-hidden="true" role="dialog">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2 class="sheet-title">Filters</h2>
+      <button class="icon-btn" id="close-sheet-btn" aria-label="Close filters">
+        <i class="ti ti-x"></i>
+      </button>
+    </div>
+    <div class="sheet-body">
+
+      <div class="filter-group">
+        <h3 class="filter-label">Category</h3>
+        <ul class="filter-checkboxes">
+          <li><label class="checkbox-label"><input type="checkbox" class="cat-check-m" value="T-shirts"> T-shirts</label></li>
+          <li><label class="checkbox-label"><input type="checkbox" class="cat-check-m" value="Hoodies"> Hoodies</label></li>
+          <li><label class="checkbox-label"><input type="checkbox" class="cat-check-m" value="Jeans"> Jeans</label></li>
+          <li><label class="checkbox-label"><input type="checkbox" class="cat-check-m" value="Jackets"> Jackets</label></li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <h3 class="filter-label">Size</h3>
+        <div class="size-chips">
+          <button class="size-chip-m" data-size="S">S</button>
+          <button class="size-chip-m" data-size="M">M</button>
+          <button class="size-chip-m" data-size="L">L</button>
+          <button class="size-chip-m" data-size="XL">XL</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3 class="filter-label">Price</h3>
+        <div class="range-slider-wrap">
+          <div class="range-track">
+            <div class="range-fill" id="range-fill-m"></div>
+            <input type="range" id="price-min-m" class="range-input range-min"
+                   min="499" max="2999" value="499" step="50">
+            <input type="range" id="price-max-m" class="range-input range-max"
+                   min="499" max="2999" value="2999" step="50">
+          </div>
+          <div class="range-values">
+            <span id="price-min-display-m">₹499</span>
+            <span id="price-max-display-m">₹2,999</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3 class="filter-label">Colour</h3>
+        <div class="colour-swatches">
+          <button class="swatch-m" data-colour="black" aria-label="Black" style="background:#111111"></button>
+          <button class="swatch-m" data-colour="yellow" aria-label="Yellow" style="background:#FFD400"></button>
+          <button class="swatch-m" data-colour="white" aria-label="White" style="background:#ffffff;border:1.5px solid #bbb"></button>
+          <button class="swatch-m" data-colour="blue" aria-label="Blue" style="background:#3B82F6"></button>
+        </div>
+      </div>
+
+    </div>
+    <div class="sheet-footer">
+      <button class="btn btn-filled w-full" id="apply-filters-btn">Apply filters</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       7. NEWSLETTER BAND
+  ═══════════════════════════════════════════ -->
+  <section class="newsletter-band" aria-label="Newsletter signup">
+    <div class="page-inner newsletter-inner">
+      <div class="newsletter-text">
+        <h2 class="newsletter-title">Join the Wardrobe club</h2>
+        <p class="newsletter-sub">Get 10% off your first order and early access to drops.</p>
+      </div>
+      <form class="newsletter-form" id="newsletter-form" novalidate>
+        <div class="newsletter-input-wrap">
+          <input type="email" id="newsletter-email" placeholder="Enter your email"
+                 class="newsletter-input" aria-label="Email address" autocomplete="email">
+          <p class="newsletter-msg" id="newsletter-msg" aria-live="polite"></p>
+        </div>
+        <button type="submit" class="btn btn-dark">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       8. FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="page-inner">
+
+      <div class="footer-top">
+        <!-- Brand column -->
+        <div class="footer-brand">
+          <span class="logo-fallback footer-logo">
+            <span class="logo-icon">W</span>
+            <span class="logo-word">WARDROBE</span>
+          </span>
+          <p class="footer-tagline">Everyday clothing for youth who like to stand out.</p>
+          <div class="social-icons">
+            <a href="#" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+            <a href="#" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <!-- Shop -->
+        <div class="footer-col">
+          <button class="footer-col-toggle" aria-expanded="true">
+            Shop <i class="ti ti-chevron-down footer-chevron"></i>
+          </button>
+          <ul class="footer-links" aria-label="Shop links">
+            <li><a href="#new-arrivals">New arrivals</a></li>
+            <li><a href="#catalog">Trending</a></li>
+            <li><a href="#catalog">Men</a></li>
+            <li><a href="#catalog">Women</a></li>
+            <li><a href="#catalog">Sale</a></li>
+          </ul>
+        </div>
+
+        <!-- Help -->
+        <div class="footer-col">
+          <button class="footer-col-toggle" aria-expanded="true">
+            Help <i class="ti ti-chevron-down footer-chevron"></i>
+          </button>
+          <ul class="footer-links" aria-label="Help links">
+            <li><a href="#">Track order</a></li>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Size guide</a></li>
+            <li><a href="#">Contact us</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="footer-col">
+          <button class="footer-col-toggle" aria-expanded="true">
+            Company <i class="ti ti-chevron-down footer-chevron"></i>
+          </button>
+          <ul class="footer-links" aria-label="Company links">
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Student discount</a></li>
+            <li><a href="#">Store locator</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Wardrobe. All rights reserved. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+        <div class="payment-chips">
+          <span class="chip chip-white">UPI</span>
+          <span class="chip chip-white">Visa</span>
+          <span class="chip chip-white">Cards</span>
+          <span class="chip chip-white">COD</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Cart toast notification -->
+  <div class="cart-toast" id="cart-toast" aria-live="assertive" aria-atomic="true" hidden>
+    <i class="ti ti-check"></i> <span id="cart-toast-msg">Added to bag</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
