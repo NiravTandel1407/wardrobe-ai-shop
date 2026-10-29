@@ -9,6 +9,7 @@ from contextlib import asynccontextmanager
 import app.models_registry
 from app.modules.products.router import category_router, product_router
 from fastapi.staticfiles import StaticFiles
+from app.api_router import api_router
 
 
 @asynccontextmanager
@@ -25,8 +26,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-app.include_router(category_router, prefix=settings.API_V1_PREFIX)
-app.include_router(product_router, prefix=settings.API_V1_PREFIX)
+app.include_router(api_router, prefix=settings.API_V1_PREFIX)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
