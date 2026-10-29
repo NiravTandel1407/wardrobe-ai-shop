@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status, File, UploadFile
 from sqlalchemy.orm import Session
 
+from app.modules.users.deps import get_current_admin
+
 from app.core.database import get_db
 from app.modules.products import services
 from app.modules.products.schemas import (
@@ -14,9 +16,11 @@ from app.modules.products.schemas import (
 category_router = APIRouter(prefix="/categories", tags=["Categories"])
 product_router = APIRouter(prefix="/products", tags=["Products"])
 
+admin_only = [Depends(get_current_admin)]
+
 # ---------- Categories ----------
 
-@category_router.post("", response_model=CategoryResponse, status_code=status.HTTP_201_CREATED)
+@category_router.post("", response_model=CategoryResponse, status_code=status.HTTP_201_CREATED, dependencies=admin_only)
 def create_category(data: CategoryCreate, db: Session = Depends(get_db)):
     try:
         return services.create_category(db, data)
@@ -39,7 +43,7 @@ def get_category(category_id: int, db: Session = Depends(get_db)):
 
 # ---------- Products ----------
 
-@product_router.post("", response_model=ProductResponse, status_code=status.HTTP_201_CREATED)
+@product_router.post("", response_model=ProductResponse, status_code=status.HTTP_201_CREATED, dependencies=admin_only)
 def create_product(data: ProductCreate, db: Session = Depends(get_db)):
     try:
         return services.create_product(db, data)
@@ -64,7 +68,7 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
     return product
 
 
-@product_router.patch("/{product_id}", response_model=ProductResponse)
+@product_router.patch("/{product_id}", response_model=ProductResponse, dependencies=admin_only)
 def update_product(product_id: int, data: ProductUpdate, db: Session = Depends(get_db)):
     product = services.get_product(db, product_id)
     if product is None:
@@ -75,14 +79,14 @@ def update_product(product_id: int, data: ProductUpdate, db: Session = Depends(g
         raise HTTPException(status_code=400, detail=str(error))
 
 
-@product_router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT)
+@product_router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT, dependencies=admin_only)
 def delete_product(product_id: int, db: Session = Depends(get_db)):
     product = services.get_product(db, product_id)
     if product is None:
         raise HTTPException(status_code=404, detail="Product not found")
     services.delete_product(db, product)
     
-@product_router.post("/images")
+@product_router.post("/images", dependencies=admin_only)
 async def upload_image(file: UploadFile = File(...)):
     content = await file.read()
     try:
@@ -92,7 +96,7 @@ async def upload_image(file: UploadFile = File(...)):
     return {"image_url": image_url}
 
 
-@product_router.post("/{product_id}/image", response_model=ProductResponse)
+@product_router.post("/{product_id}/image", response_model=ProductResponse, dependencies=admin_only)
 async def upload_product_image(
     product_id: int,
     file: UploadFile = File(...),
